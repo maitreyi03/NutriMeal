@@ -108,6 +108,9 @@
 
 <section id="recipes-section" class="container">
     <h2 class="text-center mb-4">Your Recommended Recipes</h2>
+    {% if not recipes %}
+    <p class="text-center">No recipes to show. <a href="/">Start a new search</a>.</p>
+    {% endif %}
     <div class="row">
         {% for recipe in recipes %}
         <div class="col-md-4">
@@ -115,21 +118,33 @@
                 <img src="{{ recipe.image }}" class="card-img-top recipe-img" alt="{{ recipe.name }}">
                 <div class="card-body recipe-body">
                     <h5 class="card-title">{{ recipe.name }}</h5>
-                    <p class="card-text"><i class="fas fa-utensils nutrition-icon"></i> Source: {{ recipe.source }}</p>
-                    <p class="card-text"><i class="fas fa-user-friends nutrition-icon"></i> Servings: {{ recipe.servings }}</p>
-                    <p class="card-text"><i class="fas fa-clock nutrition-icon"></i> Time: {{ recipe.time }} minutes</p>
-                    
-                    <a href="{{ recipe.url }}" class="btn btn-primary mt-2">View Recipe</a>
+                    <p class="card-text">
+                        <span class="badge badge-success">{{ recipe.category }}</span>
+                        <span class="badge badge-info">{{ recipe.area }}</span>
+                        {% for tag in recipe.tags %}
+                        <span class="badge badge-light">{{ tag }}</span>
+                        {% endfor %}
+                    </p>
+
+                    <h6 class="mt-3"><i class="fas fa-list nutrition-icon"></i> Ingredients</h6>
+                    <ul class="pl-3">
+                        {% for item in recipe.ingredients %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <a href="{{ recipe.url }}" class="btn btn-primary mt-2" target="_blank" rel="noopener">View Recipe</a>
+                    {% if recipe.youtube %}
+                    <a href="{{ recipe.youtube }}" class="btn btn-outline-danger mt-2" target="_blank" rel="noopener">
+                        <i class="fab fa-youtube"></i> Watch
+                    </a>
+                    {% endif %}
                 </div>
                 <div class="card-footer nutrition-section">
-                    <h6><i class="fas fa-info-circle nutrition-icon"></i> Nutritional Information:</h6>
-                    <div class="nutrition-info">
-                        <p><i class="fas fa-calculator nutrition-icon"></i><span class="nutrition-label">Calories:</span> <span class="nutrition-value">{{ recipe.nutritional_info.calories }} kcal</span></p>
-                        <p><i class="fas fa-bread-slice nutrition-icon"></i><span class="nutrition-label">Carbohydrates:</span> <span class="nutrition-value">{{ recipe.nutritional_info.carbohydrates }} g</span></p>
-                        <p><i class="fas fa-drumstick-bite nutrition-icon"></i><span class="nutrition-label">Protein:</span> <span class="nutrition-value">{{ recipe.nutritional_info.protein }} g</span></p>
-                        <p><i class="fas fa-oil-can nutrition-icon"></i><span class="nutrition-label">Fat:</span> <span class="nutrition-value">{{ recipe.nutritional_info.fat }} g</span></p>
-                    </div>
-                    <canvas id="nutritionChart{{ loop.index }}"></canvas>
+                    <h6><i class="fas fa-info-circle nutrition-icon"></i> Instructions</h6>
+                    {% for step in recipe.steps %}
+                    <p class="nutrition-value">{{ step }}</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -141,7 +156,6 @@
     <p>&copy; 2024 NutriMeal. All rights reserved. | <a href="#">Privacy Policy</a></p>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

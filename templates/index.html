@@ -189,76 +189,69 @@
 
     <section id="start" class="container my-5">
         <h2 class="text-center mb-4">Find Your Perfect Recipe</h2>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-warning text-center" role="alert">
+            {{ messages | join(' ') }}
+        </div>
+        {% endif %}
+        {% endwith %}
         <form id="recipeForm" action="/" method="POST">
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="ingredients">Ingredients (comma-separated):</label>
-                    <input type="text" class="form-control" id="ingredients" name="query" placeholder="e.g. chicken, spinach, almonds">
+                <div class="form-group col-md-12">
+                    <label for="query">Dish name or main ingredient:</label>
+                    <input type="text" class="form-control" id="query" name="query" placeholder="e.g. arrabiata, chicken, salmon">
+                    <small class="form-text text-muted">Searched as a dish name first, then as a main ingredient.</small>
                 </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="cookTime">Preferred Cook Time:</label>
-                    <select class="custom-select" id="cookTime" name="cookTime">
+                    <label for="cuisineType">Cuisine (optional):</label>
+                    <select class="custom-select" id="cuisineType" name="cuisineType">
                         <option value="">Any</option>
-                        <option value="15">Up to 15 minutes</option>
-                        <option value="30">Up to 30 minutes</option>
-                        <option value="45">Up to 45 minutes</option>
-                        <option value="60">Up to 60 minutes</option>
-                        <option value="120">Up to 2 hours</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="mealType">Meal Type:</label>
-                    <select class="custom-select" id="mealType" name="mealType">
-                        <option>Any</option>
-                        <option>Breakfast</option>
-                        <option>Dinner</option>
-                        <option>Lunch</option>
-                        <option>Snack</option>
-                        <option>Teatime</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="diet">Dietary Restrictions:</label>
-                    <select class="custom-select" id="diet" name="diet">
-                        <option>Any</option>
-                        <option>Vegetarian</option>
-                        <option>Gluten-Free</option>
-                        <option>Dairy-Free</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="cuisineType">Cuisine Type:</label>
-                    <select class="custom-select" id="cuisineType" name="cuisineType" multiple>
                         <option value="American">American</option>
-                        <option value="Asian">Asian</option>
+                        <option value="British">British</option>
+                        <option value="Canadian">Canadian</option>
                         <option value="Chinese">Chinese</option>
+                        <option value="Croatian">Croatian</option>
+                        <option value="Dutch">Dutch</option>
+                        <option value="Egyptian">Egyptian</option>
                         <option value="French">French</option>
+                        <option value="Greek">Greek</option>
                         <option value="Indian">Indian</option>
+                        <option value="Irish">Irish</option>
                         <option value="Italian">Italian</option>
+                        <option value="Jamaican">Jamaican</option>
                         <option value="Japanese">Japanese</option>
-                        <option value="Kosher">Kosher</option>
-                        <option value="Mediterranean">Mediterranean</option>
                         <option value="Mexican">Mexican</option>
-                        <option value="Middle Eastern">Middle Eastern</option>
-                        <option value="South East Asian">South East Asian</option>
+                        <option value="Moroccan">Moroccan</option>
+                        <option value="Polish">Polish</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Thai">Thai</option>
+                        <option value="Turkish">Turkish</option>
+                        <option value="Vietnamese">Vietnamese</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="dishType">Dish Type:</label>
-                    <select class="custom-select" id="dishType" name="dishType" multiple>
-                        <option value="Desserts">Desserts</option>
-                        <option value="Drinks">Drinks</option>
-                        <option value="Main course">Main course</option>
-                        <option value="Salad">Salad</option>
-                        <option value="Sandwiches">Sandwiches</option>
-                        <option value="Side dish">Side dish</option>
-                        <option value="Soup">Soup</option>
+                    <label for="category">Category (optional):</label>
+                    <select class="custom-select" id="category" name="category">
+                        <option value="">Any</option>
+                        <option value="Beef">Beef</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Chicken">Chicken</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Goat">Goat</option>
+                        <option value="Lamb">Lamb</option>
+                        <option value="Miscellaneous">Miscellaneous</option>
+                        <option value="Pasta">Pasta</option>
+                        <option value="Pork">Pork</option>
+                        <option value="Seafood">Seafood</option>
+                        <option value="Side">Side</option>
                         <option value="Starter">Starter</option>
-                        <option value="Sweets">Sweets</option>
+                        <option value="Vegan">Vegan</option>
+                        <option value="Vegetarian">Vegetarian</option>
                     </select>
                 </div>
             </div>
